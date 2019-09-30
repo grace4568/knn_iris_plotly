@@ -30,9 +30,9 @@ app.layout = html.Div(children=[
                 dcc.Slider(
                     id='petal-length',
                     min=1,
-                    max=8,
+                    max=9,
                     step=0.1,
-                    marks={i:str(i) for i in range(1, 9)},
+                    marks={i:str(i) for i in range(1, 10)},
                     value=5
                 ),
                 html.Br(),
@@ -42,9 +42,9 @@ app.layout = html.Div(children=[
                 dcc.Slider(
                     id='petal-width',
                     min=0.1,
-                    max=3,
+                    max=4,
                     step=0.1,
-                    marks={i:str(i) for i in range(0, 4)},
+                    marks={i:str(i) for i in range(0, 5)},
                     value=1.3,
                 ),
                 html.Br(),
@@ -67,14 +67,14 @@ app.layout = html.Div(children=[
 ######### Define Callbacks
 
 
-# Message callback
+# Message callbackF
 @app.callback(Output('message', 'children'),
               [Input('petal-length', 'value'),
                Input('petal-width', 'value')])
 def radio_results(val0, val1):
     new_observation0=[[val0, val1]]
     prediction=model.predict(new_observation0)
-    specieslist=['setosa/red', 'versicolor/blue', 'virginica/yellow']
+    specieslist=['setosa/cyan', 'versicolor/red', 'virginica/green']
     species =prediction[0]
     return f'The predicted species is {specieslist[species]}'
 
@@ -90,7 +90,7 @@ def display_figure(val0, val1):
     neighbors=list(model.kneighbors(new_observation0)[1][0])
     df_neighbors=train.iloc[neighbors, :]
 
-    brights = ['red', 'blue', 'yellow', 'white'] # https://www.canva.com/learn/100-color-combinations/
+    brights = ['cyan', 'red', 'green', 'white'] # https://www.canva.com/learn/100-color-combinations/
 
     trace1 = go.Scatter(
         x = train['pl'],
@@ -118,7 +118,7 @@ def display_figure(val0, val1):
         mode = 'markers',
         marker=dict(
             size=12,
-            color='lightgreen',
+            color='indigo',
             symbol = 'pentagon',
             line=dict(
                 color='darkblue',
